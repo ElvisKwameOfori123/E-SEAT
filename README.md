@@ -2,7 +2,7 @@
 
 ## Ethanol Spatial Exposure and Agricultural Transition framework
 
-**E-SEAT** is a reproducible county-level empirical framework for studying how U.S. corn-ethanol demand has interacted with pre-existing agricultural and agroecological conditions across the Corn Belt, and whether the estimated demand-linked component of corn specialization is large enough to support diversification when demand weakens.
+**E-SEAT** is a reproducible county-level empirical framework for studying how U.S. corn-ethanol demand has interacted with pre-existing agricultural and agroecological conditions across the Corn Belt, and whether the estimated differential demand component is large enough to move specialized counties toward lower corn shares when demand weakens.
 
 The framework accompanies the *Ecological Economics* manuscript:
 
@@ -13,13 +13,11 @@ E-SEAT links data assembly, quality assurance, county-panel construction, the na
 
 ## Research question
 
-The empirical problem is simple but consequential:
+> **If corn-ethanol demand weakens, how much adjustment is associated with the estimated differential ethanol-demand channel, and where does county corn specialization remain above a diagnostic diversification threshold after that component is removed?**
 
-> **If corn-ethanol demand weakens, how much of observed county corn specialization is associated with the estimated differential ethanol-demand channel, and where does specialization remain above a diagnostic diversification threshold after that component is removed?**
+The framework distinguishes **market responsiveness** from **transition feasibility**. A county can respond strongly to the national ethanol-demand path and still remain above the diversification benchmark because its starting corn share is high. A county with a smaller response can reach the benchmark if it begins closer to it.
 
-The framework therefore distinguishes **market responsiveness** from **transition feasibility**. A county can respond to the national ethanol-demand path and still remain highly specialized because its starting corn share is far above the diversification benchmark. Conversely, a county with a smaller estimated response can reach the benchmark if it begins closer to it.
-
-This distinction is the central analytical idea behind E-SEAT and the associated paper. fileciteturn24file1
+This distinction is the central analytical idea behind E-SEAT.
 
 ## Study coverage
 
@@ -37,7 +35,7 @@ which gives:
 - **6 Census waves**
 - **6,288 county-year rows**
 
-The corrected Revision 1 backcast uses **990 eligible counties** with the required observed 2022 corn-share and predetermined baseline information. The full 1,048-county panel remains the analytical data spine.
+The corrected Revision 1 backcast uses **990 eligible counties** with the observed 2022 corn-share and predetermined baseline information required for the transition analysis. The full 1,048-county panel remains the empirical data spine.
 
 ## E-SEAT architecture
 
@@ -58,7 +56,7 @@ flowchart LR
     M --> N[Publication maps]
 ```
 
-E-SEAT refers to this **complete empirical architecture**, not to a single regression, index, or scenario.
+E-SEAT refers to this **complete empirical architecture**, rather than to a single regression equation, exposure index, or backcast.
 
 ## Empirical design
 
@@ -74,13 +72,13 @@ The framework also constructs crop intensity and the economic outcomes used in t
 
 ### 2. National ethanol-demand trajectory
 
-The common national ethanol-demand measure is:
+The national ethanol-demand measure is:
 
 $$
 E_t=100\times\frac{CornUsedForEthanol_t}{TotalCornProduction_t}
 $$
 
-Because this national series is common to every county within a Census year, its direct level is absorbed by Census-year fixed effects. E-SEAT identifies how counties respond **differentially** to that national path according to predetermined county characteristics.
+Because this national series is common to every county within a Census year, its direct level is absorbed by Census-year fixed effects. E-SEAT identifies how county outcomes vary **differentially** along the national path according to predetermined county characteristics.
 
 ### 3. Predetermined exposure conditions
 
@@ -89,7 +87,7 @@ Two county characteristics are fixed at the beginning of the panel:
 - **1997 corn specialization** (`BaseCorn`)
 - **1997 National Commodity Crop Productivity Index** (`BaseNCCPI`)
 
-They represent the two principal empirical exposure gradients used in the main specification: historical agricultural specialization and baseline soil productivity.
+They represent the two principal exposure gradients used in the main specification: historical agricultural specialization and baseline soil productivity.
 
 ### 4. Fixed-effects specification
 
@@ -101,19 +99,19 @@ $$
 
 where $\alpha_c$ denotes county fixed effects and $\lambda_t$ denotes Census-year fixed effects. Standard errors are clustered by county in the principal estimates.
 
-The county-specific estimated differential response is then:
+The county-specific estimated differential response is:
 
 $$
 m_c=\hat\beta_B BaseCorn_c+\hat\beta_N BaseNCCPI_c
 $$
 
-This estimated sensitivity links the historical fixed-effects analysis to the scenario and backcasting stages.
+This estimated sensitivity connects the historical fixed-effects analysis to the scenario and backcasting stages.
 
 ## From responsiveness to transition feasibility
 
-The paper's transition question is evaluated in two steps.
+E-SEAT evaluates the transition question in two steps.
 
-First, E-SEAT estimates how county corn specialization responds differentially along the national ethanol-demand path. Second, the estimated county sensitivity is translated into declining-demand scenarios and compared with each county's distance from a corn-share benchmark.
+First, the framework estimates how county corn specialization responds differentially along the national ethanol-demand path. Second, the estimated county sensitivity is translated into alternative demand paths and compared with each county's distance from a corn-share benchmark.
 
 For a scenario change $\Delta E_s$:
 
@@ -129,11 +127,13 @@ $$
 
 The main diagnostic threshold is a corn share of **20% or less of agricultural land**. Threshold sensitivity is evaluated at **15%, 25%, and 30%**.
 
-## Backcast definition
+## Backcast
 
 The E-SEAT backcast progressively removes the **estimated differential ethanol-demand component** from observed 2022 county corn shares.
 
-The common national ethanol component is absorbed by Census-year fixed effects and is not separately identified. The backcast therefore uses the estimated differential component generated by the interaction of the national demand path with predetermined county exposure conditions. This is the quantity carried from the historical specification into the transition-feasibility exercise. fileciteturn27file0
+The common national ethanol component is absorbed by Census-year fixed effects. The transition exercise therefore carries forward the differential component generated by the interaction of the national ethanol-demand path with the predetermined county exposure conditions.
+
+The backcast asks whether that estimated adjustment is sufficient to move each eligible county to the selected corn-share threshold.
 
 ## Transition classification
 
@@ -158,11 +158,11 @@ The frozen corrected Revision 1 pipeline checks the following class counts:
 | 5 | 483 |
 | **Total eligible** | **990** |
 
-These counts are enforced as replication-integrity checks by both the final Stata output pipeline and the publication mapping workflow. fileciteturn27file2
+These counts are hard replication checkpoints in the final analytical and cartographic workflow.
 
 ## Residual specialization gap
 
-For counties that remain above the threshold after differential-channel removal, E-SEAT calculates the remaining corn-share distance from the benchmark:
+For counties remaining above the threshold after differential-channel removal, E-SEAT calculates the remaining distance from the benchmark:
 
 $$
 ResidualGap_c=\max\left(0,\widehat{CornShare}_{c,full}-T\right)
@@ -170,11 +170,11 @@ $$
 
 where $T$ is the selected diagnostic corn-share threshold.
 
-This residual gap is the central transition-feasibility quantity. It identifies the additional reduction in corn specialization required beyond the adjustment associated with the estimated differential ethanol-demand component.
+The residual gap identifies the additional reduction in county corn specialization required beyond the adjustment associated with the estimated differential ethanol-demand component.
 
 ## Dynamic and robustness analysis
 
-E-SEAT also reproduces the analyses used to evaluate the empirical pattern and the stability of the transition result, including:
+E-SEAT reproduces the analyses used to assess the historical pattern and the stability of the transition result, including:
 
 - event-style differential dynamics using predetermined exposure;
 - sample-exclusion checks for influential baseline corn and NCCPI observations;
@@ -185,7 +185,7 @@ E-SEAT also reproduces the analyses used to evaluate the empirical pattern and t
 - asymmetric reversibility tests; and
 - state-level scenario and transition summaries.
 
-The event-style component is used to describe the timing of exposure-related divergence across Census waves, while the fixed-effects exposure specification provides the historical response estimates used in the scenario and backcasting stages. fileciteturn24file0
+The event-style component describes the timing of exposure-related divergence across Census waves. The fixed-effects exposure specification provides the historical differential-response estimates carried into the scenario and backcasting stages.
 
 ## Data sources and project inputs
 
@@ -202,7 +202,7 @@ The final Revision 1 master pipeline uses the following project inputs:
 | `ext_margin.dta` | Extensive-margin indicator used in descriptive exposure construction |
 | `cb_2023_midwest_counties_500k.zip` | 2023 Census Cartographic Boundary county geometry for the twelve study states |
 
-The empirical data are assembled principally from the **USDA Census of Agriculture**, USDA national corn-use series, USDA NRCS **NCCPI**, county ethanol-plant information, population data, and official U.S. Census cartographic boundary geometry. The manuscript describes the outcome construction and data roles in Sections 3.1 to 3.3. fileciteturn4file0
+The empirical data architecture draws principally on the **USDA Census of Agriculture**, USDA national corn-use series, USDA NRCS **NCCPI**, county ethanol-plant information, population data, and official U.S. Census cartographic boundary geometry.
 
 Detailed provenance and redistribution information is maintained in [`data/README.md`](data/README.md) and [`spatial/README.md`](spatial/README.md).
 
@@ -217,7 +217,7 @@ The final pipeline:
 - retains suppressed or unavailable harvested-corn observations as missing;
 - rebuilds corn share from harvested corn acreage and agricultural land;
 - checks county-year uniqueness and panel structure;
-- checks input merges and spatial joins;
+- checks analytical-input merges and spatial joins;
 - applies an explicit backcast-eligibility flag; and
 - stops when a hard replication check fails.
 
@@ -231,8 +231,6 @@ Frozen integrity checks include:
 - matched analytical counties = **1,048**
 - backcast-eligible counties = **990**
 - transition classes = **439 / 14 / 17 / 37 / 483**
-
-These checks are embedded in the final Stata master pipeline. fileciteturn27file0
 
 ## Analytical implementation
 
@@ -249,7 +247,7 @@ FINAL_ECOLEC_R1_MASTER.do
 It performs:
 
 - data reconstruction and correction;
-- QA;
+- quality assurance;
 - variable construction;
 - descriptive exposure construction;
 - fixed-effects estimation;
@@ -259,10 +257,10 @@ It performs:
 - threshold classification;
 - residual-gap analysis;
 - robustness and sensitivity checks;
-- tables and analytical figures; and
+- table and analytical-figure generation; and
 - frozen county-level exports for publication mapping.
 
-The final run completes with:
+A successful run completes with:
 
 ```text
 R1 REVISION PIPELINE COMPLETE
@@ -276,11 +274,11 @@ The publication cartography companion is:
 FINAL_ECOLEC_R1_PUBLICATION_MAPS.py
 ```
 
-It reads the frozen Stata county outputs and renders publication-quality thematic maps using the 2023 Census Cartographic Boundary geometry. The script verifies the expected map sample and transition-class counts before rendering. fileciteturn27file1
+It reads frozen Stata county outputs, joins them to the 2023 Census Cartographic Boundary county geometry by FIPS/GEOID, verifies the expected analytical sample and transition-class counts, and renders the publication maps.
 
 ## Publication outputs
 
-The replication workflow produces the analytical outputs used to construct the paper, including:
+The workflow generates the analytical outputs used to construct the paper, including:
 
 - fixed-effects regression tables;
 - event-style dynamics;
@@ -334,17 +332,17 @@ E-SEAT/
 
 ## Replication sequence
 
-The final public release will use the following execution order:
+The public replication package will follow this execution order:
 
 ```text
-1. Place the documented project inputs in the repository data/spatial locations.
+1. Place the documented analytical inputs in their repository locations.
 2. Run code/stata/FINAL_ECOLEC_R1_MASTER.do.
 3. Confirm that Stata ends with "R1 REVISION PIPELINE COMPLETE".
 4. Run code/python/FINAL_ECOLEC_R1_PUBLICATION_MAPS.py.
-5. Compare the generated QA checks, transition counts, tables, and maps with the frozen release outputs.
+5. Compare generated QA checks, transition counts, tables, and maps with the frozen release outputs.
 ```
 
-The repository version of the final scripts will use portable repository-relative paths while preserving the frozen analytical equations and numerical logic.
+The repository versions of the final scripts use portable repository-relative paths while preserving the frozen empirical specification and numerical logic.
 
 ## Software
 
@@ -366,7 +364,7 @@ Publication cartography uses Python with:
 - `shapely`
 - `pyogrio`
 
-Exact package versions will be frozen with the replication release.
+Exact Python package versions will be frozen with the replication release.
 
 ## Citation
 
@@ -374,7 +372,7 @@ Until the associated article receives its final bibliographic record, please cit
 
 > Ofori, E. K. (2026). **E-SEAT: Ethanol Spatial Exposure and Agricultural Transition framework**. Reproducible research code and data documentation accompanying *Fuel-Market Reform and Structural Land-Use Lock-in in the U.S. Corn Belt*.
 
-A machine-readable `CITATION.cff` file will be included with the public release.
+A machine-readable `CITATION.cff` file will accompany the public release.
 
 ## Author
 
