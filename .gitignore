@@ -1,0 +1,21 @@
+# Python caches and environments
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+~$*
+
+# Temporary Stata files
+*.stswp
+
+# Local scratch directories
+scratch/
+tmp/
+temp/
