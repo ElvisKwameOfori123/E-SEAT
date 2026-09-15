@@ -48,7 +48,6 @@ Original import error: {exc}
 
 
 try:
-    import numpy as np
     import pandas as pd
     import geopandas as gpd
     import matplotlib.pyplot as plt
@@ -58,10 +57,10 @@ except Exception as exc:  # pragma: no cover
     _dependency_error(exc)
 
 
-DEFAULT_ROOT = Path(r"C:\Users\23108811\Documents\EthanolCorn_Data")
-# Frozen Stata run used for the revision. Python reads analytical values directly
-# from this run's final_county_outputs_for_maps_and_tables.dta.
-DEFAULT_RUN_DIR = Path(r"C:\Users\23108811\Documents\EthanolCorn_Data\R1_OHIO_CORRECTED_corn_ethanol__3_Sep_2026_123259")
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_ROOT = REPO_ROOT / "data" / "local"
+# Python reads analytical values directly from the completed Stata output folder.
+DEFAULT_RUN_DIR = REPO_ROOT / "outputs" / "r1"
 RUN_PREFIX = "R1_OHIO_CORRECTED_corn_ethanol_"
 CB_ZIP = "cb_2023_midwest_counties_500k.zip"
 
@@ -91,9 +90,9 @@ FIG4_LABELS = {
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Render publication-quality R1 county maps from frozen Stata outputs.")
     p.add_argument("--root", type=Path, default=DEFAULT_ROOT,
-                   help="EthanolCorn_Data project folder.")
+                   help="Local input directory containing the Census geometry ZIP. Default: data/local.")
     p.add_argument("--run-dir", type=Path, default=DEFAULT_RUN_DIR,
-                   help="Specific completed R1 run folder. Default is the frozen 3 Sep 2026 12:32:59 Stata run.")
+                   help="Completed Stata output directory. Default: outputs/r1.")
     p.add_argument("--dpi", type=int, default=600,
                    help="PNG resolution. Default: 600 dpi.")
 
