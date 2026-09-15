@@ -23,11 +23,11 @@ This checklist defines the minimum package required before the repository is mad
 
 ## Publication cartography
 
-- [ ] Recover and add the original code/python/FINAL_ECOLEC_R1_PUBLICATION_MAPS.py
-- [ ] Do not substitute a newly invented renderer for the original script
-- [ ] Verify that Python reads only frozen Stata county outputs
-- [ ] Verify that Python does not re-estimate analytical quantities
-- [ ] Verify 2023 Census Cartographic Boundary geometry and FIPS join
+- [x] Recover and add the original code/python/FINAL_ECOLEC_R1_PUBLICATION_MAPS.py
+- [x] Do not substitute a newly invented renderer for the original script
+- [x] Verify that Python reads only frozen Stata county outputs
+- [x] Verify that Python does not re-estimate analytical quantities
+- [x] Verify 2023 Census Cartographic Boundary geometry and FIPS join
 
 ## Data handling
 
