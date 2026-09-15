@@ -17,8 +17,8 @@ This checklist defines the minimum package required before the repository is mad
 - [x] code/stata/FINAL_ECOLEC_R1_MASTER.do controller added
 - [x] code/stata/modules/01_prepare_panel.do added
 - [ ] Add remaining frozen Stata analytical modules
-- [ ] Verify that public scripts contain no user-specific absolute paths
-- [ ] Verify package dependencies and installation instructions
+- [x] Verify that public scripts contain no user-specific absolute paths
+- [x] Verify package dependencies and installation instructions
 - [ ] Verify all hard QA assertions against frozen R1 results
 
 ## Publication cartography
