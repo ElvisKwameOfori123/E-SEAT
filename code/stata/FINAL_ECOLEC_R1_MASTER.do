@@ -8,7 +8,8 @@ Software: StataNow 18.5
 
 This public controller and its modules were reconstructed from the frozen
 successful Revision 1 Stata command log and checked against the frozen R1
-outputs. Analytical commands are preserved; only the setup is made portable.
+outputs. Analytical commands are preserved; the public setup is made portable
+and the source assembly is described as data preparation.
 
 Run from repository root:
     do code/stata/FINAL_ECOLEC_R1_MASTER.do
@@ -66,18 +67,17 @@ di as result "============================================================"
 
 global agdb       "$root/AgDBase.dta"
 global censusraw  "$root/CensusofAgData.dta"
-global ohiofix    "$root/ohio_2022_corn_govpayment_corrections.dta"
+global ohio2022   "$root/prepared/ohio_2022_corn_govpayment_prepared.csv"
 global plants     "$root/EthanolPlantsatCounties.dta"
 global cornqp     "$root/CornQP.dta"
 global extmargin  "$root/ext_margin.dta"
 global cornpc     "$root/CornPC.dta"
 
-* Reviewer 2 map fix. Put this ZIP directly in $root. It contains the
-* 12 study states only and was created from the official 2023 Census
-* Cartographic Boundary county file at 1:500,000 scale.
+* Publication maps use the official 2023 Census Cartographic Boundary county
+* file at 1:500,000 scale for the 12 study states.
 global cbzip      "$root/cb_2023_midwest_counties_500k.zip"
 
-foreach f in "$agdb" "$censusraw" "$ohiofix" "$plants" "$cornqp" "$extmargin" "$cornpc" "$cbzip" {
+foreach f in "$agdb" "$censusraw" "$ohio2022" "$plants" "$cornqp" "$extmargin" "$cornpc" "$cbzip" {
     capture confirm file "`f'"
     if _rc {
         di as error "Required file not found: `f'"
@@ -101,12 +101,10 @@ foreach pkg in ftools reghdfe estout shp2dta {
 *-------------------------------------------------------------------------------
 * 1.4 Build matched Census cartographic map geometry
 *-------------------------------------------------------------------------------
-* Reviewer 2 noted that TIGER/Line county polygons visually extend lakeshore
-* counties into the Great Lakes. We therefore build the map geometry inside the
-* main pipeline from the Census Cartographic Boundary file. shp2dta creates a
-* matched attribute database and coordinate file with a NEW _ID. All analytical
-* data are joined to that database by county FIPS. This changes display geometry
-* only, never county values or estimation.
+* The cartographic file is converted inside the pipeline with shp2dta. The
+* resulting database and coordinate files receive a new _ID, while analytical
+* values are joined by county FIPS. Spatial processing changes display geometry
+* only and does not alter statistical values.
 
 local __oldpwd "`c(pwd)'"
 cd "$mapsrc"
@@ -174,7 +172,7 @@ di as result "Part 1 complete: setup, folders, files, packages, and log checked.
 *-------------------------------------------------------------------------------
 * Execute analytical modules in frozen R1 order
 *-------------------------------------------------------------------------------
-do "code/stata/modules/01_corrected_panel.do"
+do "code/stata/modules/01_prepare_panel.do"
 do "code/stata/modules/02_main_event_exposure.do"
 do "code/stata/modules/03_robustness_scenarios.do"
 do "code/stata/modules/04_backcast_diagnostics.do"
