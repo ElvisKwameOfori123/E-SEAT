@@ -6,7 +6,7 @@
 
 > **Fuel-Market Reform and Structural Land-Use Lock-in in the U.S. Corn Belt**
 
-The framework links county agricultural data, predetermined county characteristics, the national corn-ethanol demand trajectory, fixed-effects estimation, dynamic analysis, scenario translation, backcasting, persistence diagnostics, robustness checks, and publication-ready spatial outputs.
+The framework links source-data preparation, county panel construction, predetermined county conditions, the national corn-ethanol demand trajectory, fixed-effects estimation, dynamic analysis, scenario translation, backcasting, persistence diagnostics, robustness checks, and publication-ready spatial outputs.
 
 The central empirical distinction is between **responsiveness** and **starting position**. Counties can respond to a weaker ethanol-demand signal yet remain highly specialized because they begin from very different production structures.
 
@@ -25,35 +25,57 @@ The study covers counties in **Illinois, Indiana, Iowa, Kansas, Michigan, Minnes
 | Census cartographic counties | 1,055 |
 | Analytical counties matched spatially | 1,048 |
 
-The panel is not treated as balanced after source suppression and missing-value restoration. Analytical samples vary by outcome.
+The 1,048 × 6 structure is the **data spine**. Estimation samples vary by outcome because suppressed or unavailable source values are retained as missing rather than recoded to zero.
 
-## Analytical sequence
+## How E-SEAT works
 
 ```text
-County agricultural data
-        +
-National corn-ethanol demand trajectory
-        +
-Predetermined county conditions
+SOURCE DATA
+USDA Census of Agriculture + national corn/ethanol series
++ county ethanol-plant information + NCCPI + population
++ Census cartographic geometry
         ↓
-Data reconstruction and quality assurance
+DATA PREPARATION
+harmonise county FIPS and Census years
+preserve source suppression/missingness
+incorporate county values from the relevant official source tables
+construct analysis-ready outcomes and predetermined county conditions
         ↓
-County and Census-year fixed-effects estimation
+COUNTY PANEL
+1,048-county analytical data spine, 1997–2022
         ↓
-Dynamic/event-style analysis
+EMPIRICAL ESTIMATION
+county and Census-year fixed effects
++ dynamic/event-style differential response
         ↓
-County-specific differential sensitivity
+COUNTY SENSITIVITY
+response to national ethanol demand along predetermined gradients
         ↓
-Ethanol-demand scenarios
+SCENARIOS AND BACKCAST
+remove fractions of the estimated differential ethanol-demand component
         ↓
-Backcast of the estimated differential component
+PERSISTENCE DIAGNOSTICS
+starting position, reference-point crossing, residual gaps
         ↓
-Reference-point and residual-gap diagnostics
+ROBUSTNESS + FROZEN COUNTY OUTPUTS
         ↓
-Robustness, spatial outputs, and frozen reporting files
+PYTHON PUBLICATION CARTOGRAPHY
+render maps only from Stata-produced county values
 ```
 
 E-SEAT refers to this complete reproducible architecture rather than to a single regression equation.
+
+## Data preparation
+
+Data preparation is treated as part of the empirical design, not as a separate post-estimation adjustment. The workflow begins from the assembled county panel and source Census fields, standardises county identifiers and Census waves, restores the source missing-value structure, incorporates official county values where the assembled file requires source-table completion, and then constructs the analysis-ready outcomes.
+
+For 2022 Ohio, harvested corn acreage and government-payment fields are read directly from the official USDA Census of Agriculture county tables used in the final analytical file. Two harvested-corn observations, Belmont and Cuyahoga, are source-suppressed and therefore remain missing. Government-payment values are available for all 88 counties. These steps are ordinary source preparation and are checked through reproducibility assertions.
+
+The main analytical corn outcome is then constructed consistently for all counties as:
+
+> harvested corn acreage / total agricultural land × 100.
+
+This preparation logic ensures that suppression is not interpreted as zero and that the same variable definitions feed estimation, backcasting, tables, and maps.
 
 ## Empirical design
 
@@ -71,8 +93,6 @@ County fixed effects absorb persistent county characteristics. Census-year fixed
 The backcast starts from observed 2022 county corn shares and removes the estimated county-specific **differential ethanol-demand component**. The common national response absorbed by year effects remains outside the backcast.
 
 The principal diagnostic reference point is **20% corn share**, slightly below the 2022 median of approximately 23.4%. Sensitivity is evaluated at **15%, 25%, and 30%**.
-
-At the 20% reference point:
 
 | Backcast class | Counties |
 | --- | ---: |
@@ -96,35 +116,26 @@ These quantities are descriptive decompositions of persistence rather than addit
 
 ## Robustness
 
-The frozen revision workflow includes:
+The frozen R1 workflow includes dynamic differential-response analysis, influential-observation exclusions, current ethanol-plant specifications, alternative clustering, leave-one-state-out estimation, alternative corn-share reference points, and asymmetric reversibility cases.
 
-- dynamic/event-style differential-response analysis;
-- exclusion of the upper tail of baseline corn specialization;
-- exclusion of the highest NCCPI counties;
-- current ethanol-plant count and plant-presence specifications;
-- county-clustered and state-clustered inference;
-- leave-one-state-out estimation;
-- alternative corn-share reference points; and
-- asymmetric reversibility cases at 100%, 75%, 50%, and 25%.
-
-State-clustered inference is reported as a sensitivity check because only twelve state clusters are available.
+State-clustered inference is treated as a sensitivity check because only twelve state clusters are available.
 
 ## Data architecture
 
-The authoritative R1 pipeline uses the following source or reconstruction inputs:
+The public replication workflow uses:
 
 | File | Role |
 | --- | --- |
 | `AgDBase.dta` | County agricultural panel and analytical data spine |
-| `CensusofAgData.dta` | Census fields used to restore source missingness |
-| `ohio_2022_corn_govpayment_corrections.dta` | Ohio 2022 corn-acreage and government-payment correction |
+| `CensusofAgData.dta` | Census source fields used to preserve the original missing-value structure |
+| `ohio_2022_corn_govpayment_prepared.csv` | 2022 Ohio county corn and government-payment values assembled from official USDA county tables |
 | `EthanolPlantsatCounties.dta` | County ethanol-plant information |
 | `CornQP.dta` | National corn production and ethanol-use series |
 | `CornPC.dta` | County corn input used in descriptive exposure construction |
 | `ext_margin.dta` | Extensive-margin indicator |
 | `cb_2023_midwest_counties_500k.zip` | 2023 Census Cartographic Boundary county geometry |
 
-Source datasets remain subject to the terms and attribution requirements of their original providers. Public release should therefore prioritize reproducible acquisition instructions, derived analytical outputs, and code rather than redistributing source files where redistribution is uncertain.
+See `data/README.md` for the preparation sequence and provenance.
 
 ## Quality assurance
 
@@ -134,41 +145,31 @@ Key frozen checks include:
 | --- | ---: |
 | Analytical data spine | 6,288 potential county-year rows |
 | Ohio 2022 observed county corn acreage | 3,313,863 acres |
-| Ohio 2022 suppressed corn-acreage counties | 2 |
+| Ohio 2022 source-suppressed corn counties | 2 |
+| Ohio 2022 county government payments | $136,764,000 |
 | Census cartographic counties | 1,055 |
 | Spatially matched analytical counties | 1,048 |
 | Backcast-eligible counties | 990 |
 | Backcast classes | 439 / 14 / 17 / 37 / 483 |
 
-The authoritative Stata workflow stops for inspection when a hard integrity check fails.
+These are reproducibility checks on data preparation and analytical output. They are not separate estimands.
 
 ## Software and implementation
 
-**StataNow 18.5** is the authoritative analytical environment. The main workflow uses `ftools`, `reghdfe`, `estout`, `spmap`, `coefplot`, and `shp2dta`.
+**StataNow 18.5 is the authoritative analytical environment.** Stata performs data preparation, quality assurance, variable construction, estimation, dynamic analysis, scenario translation, backcasting, robustness analysis, and the export of frozen county-level values.
 
-Python is used only to render publication maps from frozen county-level Stata outputs. The cartographic workflow does not re-estimate analytical quantities.
-
-The final public release is intended to contain:
+Python is used **only for publication cartography**. It reads the frozen county values exported by Stata, joins them to the 2023 Census Cartographic Boundary geometry by FIPS/GEOID, and renders the journal maps. It does not estimate regressions, construct county sensitivities, or recalculate the backcast.
 
 ```text
 code/stata/FINAL_ECOLEC_R1_MASTER.do
 code/python/FINAL_ECOLEC_R1_PUBLICATION_MAPS.py
-documentation/reproducibility.md
-data/README.md
-outputs/
 ```
-
-See `RELEASE_CHECKLIST.md` for the remaining release items.
 
 ## Repository status
 
-This repository remains **private during manuscript revision**. The public release will provide the analytical code, quality-assurance documentation, derived county-level outputs, and publication-figure inputs, subject to source-data redistribution conditions.
-
-The repository should not be treated as the final public replication package until every item in `RELEASE_CHECKLIST.md` is complete.
+This repository remains **private during manuscript revision**. The public release should be treated as final only after the executable Stata modules, the original Python renderer, frozen outputs, provenance notes, and final reproduction checks are complete.
 
 ## Citation
-
-Please cite the framework and associated study as:
 
 > Ofori, E. K. (2026). **E-SEAT: Ethanol Spatial Exposure and Agricultural Transition framework**. Reproducible research materials for *Fuel-Market Reform and Structural Land-Use Lock-in in the U.S. Corn Belt*.
 
