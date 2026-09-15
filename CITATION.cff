@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use E-SEAT, please cite the framework and associated study."
+title: "E-SEAT: Ethanol Spatial Exposure and Agricultural Transition framework"
+type: software
+authors:
+  - family-names: "Ofori"
+    given-names: "Elvis Kwame"
+repository-code: "https://github.com/ElvisKwameOfori123/E-SEAT"
+license: MIT
+keywords:
+  - corn ethanol
+  - Renewable Fuel Standard
+  - agricultural specialization
+  - land-use adjustment
+  - backcasting
+  - reproducibility
+abstract: >-
+  Reproducible county-level empirical framework linking U.S. corn-ethanol demand,
+  predetermined agricultural structure and soil productivity to differential
+  county responses, scenario translation, backcasting and spatial persistence diagnostics.
