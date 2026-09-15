@@ -24,3 +24,7 @@ tmp/
 # Credentials and local environment
 .env
 .env.*
+
+# Locally supplied source binaries
+# See data/README.md and data/MANIFEST.csv
+data/local/
