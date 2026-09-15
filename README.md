@@ -20,11 +20,11 @@ The analysis therefore separates **responsiveness** from **starting position**. 
 
 The repository follows a simple paper-replication structure: **data → Stata analysis → frozen county outputs → Python publication maps**.
 
-1. Place the locally supplied binary inputs listed in `data/MANIFEST.csv` under `data/local/`.
-2. Run `code/stata/FINAL_ECOLEC_R1_MASTER.do` from the repository root.
-3. After the Stata analytical sequence is complete, run `code/python/FINAL_ECOLEC_R1_PUBLICATION_MAPS.py` to render the final maps.
+1. Review the required inputs and provenance in `data/README.md` and `data/MANIFEST.csv`.
+2. The Stata master controller, `code/stata/FINAL_ECOLEC_R1_MASTER.do`, records the intended analytical sequence. The data-preparation module is already included; the remaining frozen analytical modules are still being consolidated into the public repository.
+3. If the frozen Stata county outputs are already available, `code/python/FINAL_ECOLEC_R1_PUBLICATION_MAPS.py` can be used to render the publication maps.
 
-Stata remains authoritative for all analytical quantities. Python is only a cartographic renderer.
+Stata remains authoritative for all analytical quantities. Python is only a cartographic renderer. Until modules 02–06 are added, the repository should not be described as a complete one-command replication package.
 
 ---
 
