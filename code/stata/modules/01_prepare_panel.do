@@ -159,7 +159,7 @@ gen double corn_share = 100 * TotalCornAreaHarvested / TotalArea ///
     if TotalArea > 0 & !missing(TotalCornAreaHarvested)
 label var corn_share "Harvested corn share of agricultural land, percent"
 
-* Retain the legacy variable only for forensic comparison. It is not used.
+* Retain the legacy variable only for compatibility checks. It is not used.
 capture label var PecentPlantedCorn "LEGACY zero-filled corn-share series; not used in the prepared R1 analysis"
 
 gen crop_intensity = pct_cropland
@@ -274,7 +274,7 @@ preserve
 restore
 
 * Government-payment source coverage.
-di _n as result "--- GOVERNMENT PAYMENT MISSINGNESS AFTER REPAIR ---"
+di _n as result "--- GOVERNMENT PAYMENT MISSINGNESS AFTER PREPARATION ---"
 tab Year if missing(GovPayment)
 tab State_str if missing(GovPayment)
 
