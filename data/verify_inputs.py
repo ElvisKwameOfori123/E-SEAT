@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify that local E-SEAT R1 input files match the frozen manifest."""
+"""Verify local E-SEAT R1 inputs against the frozen data manifest."""
 
 from __future__ import annotations
 
@@ -8,8 +8,8 @@ import hashlib
 import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parent
-MANIFEST = HERE / "MANIFEST.csv"
+DATA_DIR = Path(__file__).resolve().parent
+MANIFEST = DATA_DIR / "MANIFEST.csv"
 
 
 def sha256(path: Path) -> str:
@@ -21,18 +21,23 @@ def sha256(path: Path) -> str:
 
 
 def main() -> int:
-    root = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else HERE
+    # By default paths in MANIFEST.csv are resolved relative to data/.
+    # An optional argument may point to a different data root containing
+    # the same local/ and prepared/ structure.
+    root = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else DATA_DIR
     failures = 0
 
     with MANIFEST.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
 
     for row in rows:
-        if row["used_by_master"] != "yes":
+        if row["used_by_public_workflow"] != "yes":
             continue
-        path = root / row["file"]
+
+        rel = row["path"]
+        path = root / rel
         if not path.exists():
-            print(f"MISSING  {row['file']}")
+            print(f"MISSING  {rel}")
             failures += 1
             continue
 
@@ -43,7 +48,7 @@ def main() -> int:
         size_ok = actual_size == expected_size
         hash_ok = actual_hash == row["sha256"]
         status = "OK" if size_ok and hash_ok else "FAIL"
-        print(f"{status:7} {row['file']}")
+        print(f"{status:7} {rel}")
 
         if not size_ok:
             print(f"         size: expected {expected_size}, got {actual_size}")
@@ -57,7 +62,7 @@ def main() -> int:
         print(f"\n{failures} input check(s) failed.")
         return 1
 
-    print("\nAll authoritative E-SEAT R1 input files match the frozen manifest.")
+    print("\nAll E-SEAT R1 inputs match the frozen manifest.")
     return 0
 
 
