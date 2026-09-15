@@ -1,0 +1,26 @@
+# OS/editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.stswp
+*.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Stata logs and temporary output
+*.smcl
+*.log
+
+# Local scratch/output folders
+scratch/
+temp/
+tmp/
+
+# Credentials and local environment
+.env
+.env.*
