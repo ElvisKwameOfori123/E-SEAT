@@ -67,7 +67,7 @@ di as result "============================================================"
 
 global agdb       "$root/AgDBase.dta"
 global censusraw  "$root/CensusofAgData.dta"
-global ohio2022   "$root/prepared/ohio_2022_corn_govpayment_prepared.csv"
+global ohio2022   "data/prepared/ohio_2022_corn_govpayment_prepared.csv"
 global plants     "$root/EthanolPlantsatCounties.dta"
 global cornqp     "$root/CornQP.dta"
 global extmargin  "$root/ext_margin.dta"
