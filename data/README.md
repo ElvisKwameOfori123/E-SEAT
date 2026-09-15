@@ -2,6 +2,14 @@
 
 This directory documents the inputs and preparation sequence used by the frozen Revision 1 E-SEAT workflow for *Fuel-Market Reform and Structural Land-Use Lock-in in the U.S. Corn Belt*.
 
+## Academic source acknowledgement
+
+Part of the source material used in assembling the E-SEAT database was drawn from the publicly available `Papers/EthanolCorn` research repository accompanying:
+
+> **Le, H. and Gálvez-Soriano, O.** *Biofuel Growth: The Unintended Effects of the Ethanol Boom on Farmland Values*. **Applied Economic Perspectives and Policy**. https://doi.org/10.1002/aepp.70071
+
+Those materials were combined with additional official and independently assembled inputs used by E-SEAT. They are therefore acknowledged as an upstream academic data and estimation source rather than presented as original E-SEAT data. Oscar Gálvez-Soriano gave explicit permission by email for use of the publicly available repository materials in this academic study.
+
 ## Preparation principle
 
 E-SEAT treats source assembly and missing-value handling as part of normal data preparation. The workflow does not treat suppressed or unavailable Census observations as zeros. Instead it preserves the source missing-value structure, incorporates values from the relevant official county tables where needed for the assembled analytical file, and constructs the outcomes only after those source fields have been aligned.
