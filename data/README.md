@@ -1,45 +1,57 @@
 # E-SEAT data
 
-This directory documents the data inputs used by the Revision 1 E-SEAT master pipeline for *Fuel-Market Reform and Structural Land-Use Lock-in in the U.S. Corn Belt*.
+This directory documents the inputs and preparation sequence used by the frozen Revision 1 E-SEAT workflow for *Fuel-Market Reform and Structural Land-Use Lock-in in the U.S. Corn Belt*.
 
-## Authoritative inputs
+## Preparation principle
+
+E-SEAT treats source assembly and missing-value handling as part of normal data preparation. The workflow does not treat suppressed or unavailable Census observations as zeros. Instead it preserves the source missing-value structure, incorporates values from the relevant official county tables where needed for the assembled analytical file, and constructs the outcomes only after those source fields have been aligned.
+
+## Preparation sequence
+
+1. Load the 1,048-county agricultural data spine and retain the six Census waves.
+2. Standardise county FIPS and verify unique county-year records.
+3. Reattach the source Census fields for harvested corn acreage and government payments so source suppression remains visible.
+4. Incorporate the 2022 Ohio county values assembled from the official USDA Census of Agriculture county tables.
+5. Construct corn specialization as harvested corn acreage divided by total agricultural land, and rebuild the government-payment-per-acre measure from the prepared source values.
+6. Merge the national corn-ethanol trajectory and predetermined county conditions.
+7. Join frozen county outputs to Census cartographic geometry only after the statistical analysis is complete.
+
+## Inputs
 
 | File | Role |
 | --- | --- |
 | `AgDBase.dta` | County agricultural panel and 1,048-county analytical data spine |
-| `CensusofAgData.dta` | Raw Census fields used to restore source missingness before rebuilding outcomes |
-| `ohio_2022_corn_govpayment_corrections.dta` | Ohio 2022 harvested-corn and government-payment correction |
-| `EthanolPlantsatCounties.dta` | County ethanol-plant information used in descriptive analysis and robustness checks |
+| `CensusofAgData.dta` | Census source fields used to preserve original suppression/missingness |
+| `prepared/ohio_2022_corn_govpayment_prepared.csv` | 2022 Ohio county corn and government-payment values assembled from official USDA county tables |
+| `EthanolPlantsatCounties.dta` | County ethanol-plant information used descriptively and in robustness checks |
 | `CornQP.dta` | National corn production and corn-used-for-ethanol series |
 | `CornPC.dta` | County corn indicator used in descriptive exposure construction |
 | `ext_margin.dta` | Extensive-margin indicator used in descriptive exposure construction |
-| `cb_2023_midwest_counties_500k.zip` | 2023 Census Cartographic Boundary county geometry for the twelve study states |
+| `cb_2023_midwest_counties_500k.zip` | 2023 Census Cartographic Boundary geometry for the twelve study states |
 
-The public text mirrors of the smaller inputs are stored under `data/source/`. The Ohio correction is stored under `data/corrections/`.
+Text mirrors of smaller inputs are stored under `data/source/`.
 
-## Missing values and Ohio 2022 repair
+## Ohio 2022 source preparation
 
-Suppressed or unavailable Census values are retained as missing rather than converted to zero. The Revision 1 pipeline first restores raw missingness from `CensusofAgData.dta`, then applies the Ohio 2022 correction from official USDA Census of Agriculture county tables.
+The Ohio 2022 preparation table is drawn from the official USDA Census of Agriculture county tables used for the final analysis. It contains harvested corn acreage and government-payment values in the units expected by the analytical workflow.
 
-Frozen Ohio checks are:
+Reproducibility checks confirm:
 
-- observed harvested-corn acreage for 86 counties: **3,313,863 acres**;
-- harvested-corn acreage suppressed for **Belmont (39013)** and **Cuyahoga (39035)**;
-- government-payment values available for all 88 Ohio counties;
-- summed Ohio 2022 county government payments: **$136,764,000**.
+- harvested corn acreage is observed for 86 counties and sums to **3,313,863 acres**;
+- Belmont (39013) and Cuyahoga (39035) are source-suppressed for harvested corn and remain missing;
+- government-payment values are available for all 88 Ohio counties;
+- summed county government payments equal **$136,764,000**.
+
+These checks document source coverage and unit consistency. They do not alter the treatment of suppressed values.
 
 ## Spatial geometry
 
-Publication maps use the official 2023 U.S. Census Cartographic Boundary county file at 1:500,000 scale, restricted to the twelve study states. The geometry contains 1,055 counties, of which 1,048 match the analytical data spine by county FIPS. The remaining seven are cartographic-only counties.
+Publication maps use the official 2023 U.S. Census Cartographic Boundary county file at 1:500,000 scale, restricted to the twelve study states. The geometry contains 1,055 counties, of which 1,048 match the analytical data spine by FIPS. Spatial processing changes display geometry only and never changes county analytical values.
 
 ## File integrity
 
-`MANIFEST.csv` records the exact byte size and SHA-256 digest of the frozen input files supplied for the R1 analysis.
+`MANIFEST.csv` records the expected byte size and SHA-256 digest of the frozen input files or public text equivalents used by the replication workflow.
 
 ## Redistribution
 
-The repository distinguishes original/source data from transparent correction and derived files. Before the repository is made public, redistribution conditions for each original source should be checked. If an original binary file cannot be redistributed, the final public release will retain its manifest entry and provide source/acquisition instructions while preserving the reproducible correction and analytical code.
-
-## Expected placement for the Stata master
-
-The final master script expects the eight authoritative inputs above in the configured E-SEAT input directory. Do not substitute zero-filled versions of the Census variables.
+Source datasets remain subject to the terms of their original providers. The public repository therefore distinguishes source-data documentation from derived and prepared files. Where original binary data are not redistributed, the release should provide acquisition instructions and integrity hashes sufficient to verify a locally supplied copy.
