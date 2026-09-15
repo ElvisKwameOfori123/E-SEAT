@@ -16,6 +16,18 @@ The analysis therefore separates **responsiveness** from **starting position**. 
 
 ---
 
+## Quick start
+
+The repository follows a simple paper-replication structure: **data → Stata analysis → frozen county outputs → Python publication maps**.
+
+1. Place the locally supplied binary inputs listed in `data/MANIFEST.csv` under `data/local/`.
+2. Run `code/stata/FINAL_ECOLEC_R1_MASTER.do` from the repository root.
+3. After the Stata analytical sequence is complete, run `code/python/FINAL_ECOLEC_R1_PUBLICATION_MAPS.py` to render the final maps.
+
+Stata remains authoritative for all analytical quantities. Python is only a cartographic renderer.
+
+---
+
 ## Study design
 
 E-SEAT covers counties in:
@@ -232,7 +244,7 @@ The repository should only be presented as the final public replication archive 
 
 ## Acknowledgements and source attribution
 
-The E-SEAT database was assembled from multiple public and official sources. **Selected data and estimation materials from the public `Papers/EthanolCorn` repository associated with Hoanh Le and Oscar Gálvez-Soriano were used as source material and combined with additional USDA Census of Agriculture, national corn and ethanol-use, spatial, and county-level inputs assembled for E-SEAT.**
+The E-SEAT database was assembled from multiple public and official sources. **Selected data and estimation materials from the public [`galvez-soriano/Papers/EthanolCorn`](https://github.com/galvez-soriano/Papers/tree/main/EthanolCorn) repository associated with Hoanh Le and Oscar Gálvez-Soriano were used as upstream source material and combined with additional USDA Census of Agriculture, national corn and ethanol-use, spatial, and county-level inputs assembled for E-SEAT.**
 
 The associated study is:
 
