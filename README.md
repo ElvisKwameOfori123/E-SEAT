@@ -230,6 +230,20 @@ The repository should only be presented as the final public replication archive 
 
 ---
 
+## Acknowledgements and source attribution
+
+The E-SEAT database was assembled from multiple public and official sources. **Selected data and estimation materials from the public `Papers/EthanolCorn` repository associated with Hoanh Le and Oscar Gálvez-Soriano were used as source material and combined with additional USDA Census of Agriculture, national corn and ethanol-use, spatial, and county-level inputs assembled for E-SEAT.**
+
+The associated study is:
+
+> **Le, H. and Gálvez-Soriano, O.** *Biofuel Growth: The Unintended Effects of the Ethanol Boom on Farmland Values*. **Applied Economic Perspectives and Policy**. https://doi.org/10.1002/aepp.70071
+
+Oscar Gálvez-Soriano also gave the author explicit permission by email to use the publicly available repository materials for this academic study. E-SEAT therefore acknowledges both the published study and its accompanying public research materials. Any transformations, data integration, variable construction, modelling choices, errors, or interpretations in E-SEAT remain the responsibility of the E-SEAT author.
+
+Additional provenance for the assembled analytical inputs is documented in `data/README.md` and `documentation/DATA_PREPARATION.md`.
+
+---
+
 ## Citation
 
 > Ofori, E. K. (2026). **E-SEAT: Ethanol Spatial Exposure and Agricultural Transition framework**. Reproducible research materials for *Fuel-Market Reform and Structural Land-Use Lock-in in the U.S. Corn Belt*.
