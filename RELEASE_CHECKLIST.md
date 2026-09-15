@@ -5,48 +5,38 @@ This checklist defines the minimum package required before the repository is mad
 ## Repository documentation
 
 - [x] README aligned with final manuscript terminology
+- [x] Data-preparation logic documented without post-hoc repair framing
 - [x] MIT LICENSE present
 - [x] CITATION.cff present
-- [x] data/README.md with provenance, correction, integrity, and redistribution notes
-- [x] data/MANIFEST.csv with byte sizes and SHA-256 digests for the frozen R1 inputs
+- [x] data/README.md with provenance, preparation, integrity, and redistribution notes
+- [x] data/MANIFEST.csv with byte sizes and SHA-256 digests
 - [ ] documentation/reproducibility.md with exact run order and software requirements
 
 ## Authoritative analytical code
 
-- [ ] code/stata/FINAL_ECOLEC_R1_MASTER.do
-- [ ] Verify that the public script contains no user-specific absolute paths
+- [x] code/stata/FINAL_ECOLEC_R1_MASTER.do controller added
+- [x] code/stata/modules/01_prepare_panel.do added
+- [ ] Add remaining frozen Stata analytical modules
+- [ ] Verify that public scripts contain no user-specific absolute paths
 - [ ] Verify package dependencies and installation instructions
-- [ ] Verify all hard QA assertions against the frozen R1 results
+- [ ] Verify all hard QA assertions against frozen R1 results
 
 ## Publication cartography
 
-- [ ] code/python/FINAL_ECOLEC_R1_PUBLICATION_MAPS.py
+- [ ] Recover and add the original code/python/FINAL_ECOLEC_R1_PUBLICATION_MAPS.py
+- [ ] Do not substitute a newly invented renderer for the original script
 - [ ] Verify that Python reads only frozen Stata county outputs
 - [ ] Verify that Python does not re-estimate analytical quantities
 - [ ] Verify 2023 Census Cartographic Boundary geometry and FIPS join
 
-## Frozen outputs
-
-- [ ] Main regression table
-- [ ] Event-style dynamics table and figure inputs
-- [ ] Scenario assumptions and state summaries
-- [ ] Backcast classifications
-- [ ] Alternative reference-point sensitivity
-- [ ] Asymmetric reversibility outputs
-- [ ] Backcast group profiles
-- [ ] Residual-gap summaries
-- [ ] Current-plant and state-cluster robustness outputs
-- [ ] Frozen county-level values used for publication maps
-
 ## Data handling
 
-- [ ] Check redistribution terms before making original source files public
-- [ ] Provide source links/acquisition instructions for any source files not redistributed
-- [x] Include the Ohio 2022 correction provenance and reconciliation
-- [x] Confirm that suppressed Census values remain missing rather than zero-filled
+- [x] Preserve source suppression as missing rather than zero
+- [x] Document the 2022 Ohio county-table preparation and source coverage
+- [x] Store the public Ohio preparation table under data/prepared/
 - [x] Provide public text mirrors of CornQP, CornPC, ethanol-plant, and extensive-margin inputs
-- [x] Provide a transparent CSV copy of the Ohio 2022 correction
 - [x] Provide a local input-integrity verification script
+- [ ] Check redistribution terms before making original binary source files public
 
 ## Final reconciliation
 
