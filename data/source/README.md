@@ -1,6 +1,6 @@
 # Source-data mirrors
 
-This directory contains text mirrors of smaller E-SEAT inputs so that their contents can be inspected directly in GitHub.
+This directory contains text mirrors of smaller E-SEAT source inputs so their contents can be inspected directly in GitHub.
 
 Currently committed:
 
@@ -9,8 +9,8 @@ Currently committed:
 - `EthanolPlantsatCounties.csv`: county ethanol-plant counts;
 - `ext_margin.csv`: county extensive-margin indicator.
 
-The authoritative Revision 1 Stata run used the corresponding `.dta` files. Their exact byte sizes and SHA-256 hashes, together with the larger `AgDBase.dta`, `CensusofAgData.dta`, and Census cartographic geometry archive, are recorded in `../MANIFEST.csv`.
+The Ohio 2022 county table used during data preparation is stored under `../prepared/`.
 
-The transparent Ohio 2022 repair is stored separately in `../corrections/`.
+The authoritative Stata analysis uses the documented source variables and preserves source suppression as missing. Exact file sizes and SHA-256 hashes are recorded in `../MANIFEST.csv`.
 
-For a final public replication release, the large/original binary inputs should only be redistributed after their source terms have been checked. If they are not redistributed, acquisition/reconstruction instructions should be retained here and the manifest hashes should be used to verify locally supplied copies.
+For the public release, original binary inputs should only be redistributed where source terms permit. Otherwise, the repository will retain acquisition instructions and hashes so locally obtained copies can be verified.
