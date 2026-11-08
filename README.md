@@ -2,11 +2,39 @@
 
 ## Ethanol Spatial Exposure and Agricultural Transition
 
+**What happens to land use when a policy-driven demand signal weakens?**
+
 **E-SEAT** is the reproducible empirical framework accompanying:
 
 > **Fuel-Market Reform and Structural Land-Use Lock-in in the U.S. Corn Belt**
 
 The study examines how county-level corn specialization in the U.S. Midwest may adjust when the national corn-ethanol demand signal weakens. It separates **estimated responsiveness** from **starting specialization** and evaluates how those features shape persistent spatial differences.
+
+## In foresight terms
+
+Transitions are rarely a clean reversal of the forces that created them. E-SEAT reads a past
+transition to learn how land use adjusts when a policy-made demand signal fades: which places
+respond, which stay locked in, and how starting specialization and soil shape the difference. Its
+scenario backcast removes the estimated ethanol-demand component step by step, a stress-test of how
+persistent the corn landscape is. The lesson carries to other agricultural transitions in which a
+long-standing demand signal may weaken: anticipating change includes anticipating lock-in.
+
+## Part of a strategic foresight system
+
+Strategic foresight is the ability to perceive, make sense of and act upon different ideas of the
+future emerging in the present (OECD, 2021). These repositories form one such system for
+anticipating the transition of Irish agriculture; each plays one role.
+
+| Role | Repository | Question it answers |
+|---|---|---|
+| Perceive: signals of change | GOBLIN-Spatial | How have livestock systems changed in every place, 2015–2025? |
+| Perceive: the present, farm by farm | AgriSyn v2 | Which farms, of what kind, are where today? |
+| Make sense: a shared view | GOBLIN-Spatial Explorer | What does that change look like for a place, county or catchment? |
+| Act: test instruments | StockRate-Sim | How would farms respond to a livestock tax or a tradable cap? |
+| Act: stress-test a pathway | AgriSyn NZ | Who carries the 2050 net-zero land transition? |
+| **Learn: a past transition** | **E-SEAT (this repository)** | **Does land use lock in when a demand signal weakens? (US Corn Belt)** |
+
+*OECD (2021), Towards a strategic foresight system in Ireland, OECD Policy Brief.*
 
 ## Study coverage
 
