@@ -36,4 +36,4 @@ Revision 1 materials. Some analysis modules are still to be added; see `RELEASE_
 
 Ofori, E. K. (2026). E-SEAT: Ethanol Spatial Exposure and Agricultural Transition framework. See `CITATION.cff`. Acknowledgements are in `ACKNOWLEDGEMENTS.md`.
 
-Code: MIT licence.
+Code: GNU GPL v3.0. Source datasets keep their providers' terms.

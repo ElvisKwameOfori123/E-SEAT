@@ -6,7 +6,7 @@ authors:
   - family-names: "Ofori"
     given-names: "Elvis Kwame"
 repository-code: "https://github.com/ElvisKwameOfori123/E-SEAT"
-license: MIT
+license: GPL-3.0-only
 keywords:
   - corn ethanol
   - Renewable Fuel Standard

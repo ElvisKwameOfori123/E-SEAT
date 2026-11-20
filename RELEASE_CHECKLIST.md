@@ -6,7 +6,7 @@ This checklist defines the minimum package required before the repository is mad
 
 - [x] README aligned with final manuscript terminology
 - [x] Data-preparation logic documented without post-hoc repair framing
-- [x] MIT LICENSE present
+- [x] GPL-3.0 LICENSE present
 - [x] CITATION.cff present
 - [x] data/README.md with provenance, preparation, integrity, and redistribution notes
 - [x] data/MANIFEST.csv with byte sizes and SHA-256 digests
